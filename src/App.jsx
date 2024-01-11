@@ -1,19 +1,25 @@
-import { useState } from 'react'
-import './App.css'
-import Join from './components/Join/Join'
-import Chat from './components/Chat/Chat'
+import './App.css';
+import Join from './components/Join/Join';
+import Chat from './components/Chat/Chat';
+import Register from './components/Register/Register';
+import { AuthProvider } from './context/AuthContext';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
 function App() {
-  const [chatVisibility, setChatVisibility] = useState(false)
-  const [socket, setSocket] = useState(null)
-
   return (
     <div className="App">
-      {
-        chatVisibility ? <Chat socket={socket} /> : <Join setSocket={setSocket} setChatVisibility={setChatVisibility} />
-      }
+      <BrowserRouter>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<Join />} />
+            <Route path="/chat" element={<Chat />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </AuthProvider>
+      </BrowserRouter>
     </div>
-  )
+  );
 }
 
-export default App
+
+export default App;

@@ -1,19 +1,26 @@
 import React, {useState} from 'react'
-import style from './Join.module.css'
+import style from './Register.module.css'
 import {Input, Button} from '@mui/material'
-import { useAuth } from '../../context/AuthContext'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import imageLogo from '../../assets/et_chat.jpg'
+import axios from 'axios';
 
-export default function Join() {
-  const { login } = useAuth();
+export default function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (username, password) => {
-    login(username, password);
-    console.log('entrei', username, password)
-  }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        axios.post('http://localhost:3001/register', { username, password })
+        .then(res => {
+            navigate('/');
+            console.log('registrei')
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
   
   return (
     <div>
@@ -23,7 +30,7 @@ export default function Join() {
   </div>
     <div className={style['join-container']}>
       <h2 className={style['title']}>Chat em tempo real</h2>
-      <form>
+        <form onSubmit={handleSubmit}>
       <Input 
         type='text'
         placeholder='Nome de usuário'
@@ -36,11 +43,11 @@ export default function Join() {
         onChange={(e) => setPassword(e.target.value)}
         value={password}
       />
-      <Button sx={{mt:2}} onClick={()=>handleSubmit(username, password)} variant="contained">Entrar</Button>
-      <Link to="/register">
-      <Button sx={{mt:2}} variant="contained">Registrar</Button>
+      <Button sx={{mt:2}} onClick={handleSubmit} variant="contained">Registrar</Button>
+      <Link to="/">
+      <Button sx={{mt:2}} variant="contained">Entrar</Button>
       </Link>
-      </form>
+        </form>
     </div>
     </div>
   )

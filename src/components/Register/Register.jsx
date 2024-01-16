@@ -10,12 +10,12 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        axios.post('http://localhost:3001/register', { username, password })
+        const response = await axios.post('http://localhost:3001/register', { username, password })
         .then(res => {
             navigate('/');
-            console.log('registrei')
+            console.log('Usuário cadastrado com sucesso!', response.data);
         })
         .catch(err => {
             console.log(err);
@@ -38,7 +38,7 @@ export default function Register() {
         value={username}
       />
       <Input 
-        type='text'
+        type='password'
         placeholder='Senha'
         onChange={(e) => setPassword(e.target.value)}
         value={password}

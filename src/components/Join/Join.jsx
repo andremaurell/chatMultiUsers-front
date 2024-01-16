@@ -10,8 +10,8 @@ export default function Join() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (username, password) => {
-    login(username, password);
+  const handleSubmit = async (username, password) => {
+    await login(username, password);
     console.log('entrei', username, password)
   }
   
@@ -31,7 +31,7 @@ export default function Join() {
         value={username}
       />
       <Input 
-        type='text'
+        type='password'
         placeholder='Senha'
         onChange={(e) => setPassword(e.target.value)}
         value={password}

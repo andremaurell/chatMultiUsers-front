@@ -7,64 +7,73 @@ import fundoAmarelo from '../../assets/fundoChat_amarelo.png';
 import fundoAzul from '../../assets/fundoChat_azul.png';
 import fundoRosa from '../../assets/fundoChat_rosa.png';
 import fundoNormal from '../../assets/fundoChat.png'
+import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
-export default function Chat({socket}) {
 
+export default function Chat() {
+  const { user, socket, isAuthenticated } = useAuth();
   const bottomRef = useRef()
   const messageRef = useRef()
   const [messageList, setMessageList] = useState([])
   const [backgroundImage, setBackgroundImage] = useState('');
-  const [recordedAudio, setRecordedAudio] = useState(null);
+  const navigate = useNavigate();
 
-  useEffect(()=>{
-    socket.on('receive_message', data => {
-      setMessageList((current) => [...current, data])
-    })
-    if(recordedAudio){
-    socket.on('receive_message', data => {
-      setMessageList((current) => [...current, data])
-      console.log("oi")
-    })
-  }
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated]);
 
-    return () => socket.off('receive_message')
-  }, [socket])
+  useEffect(() => {
+     console.log('socket', socket)
+     console.log('user', user)
+    const handleReceiveMessage = (data) => {
+      console.log('data', data)
+      setMessageList((current) => [...current, data]);
+    };
 
-  useEffect(()=>{
-    scrollDown()
-  }, [messageList])
+    socket.on('receive_message', handleReceiveMessage);
+
+    return () => {
+      socket.off('receive_message', handleReceiveMessage);
+    };
+  }, [socket]);
+              
+  useEffect(() => {
+    bottomRef.current.scrollIntoView({ behavior: 'smooth' });
+  }, [messageList]);
 
   const handleSubmit = () => {
-    const message = messageRef.current.value
-    if(!message.trim()) return
+    const message = messageRef.current.value;
+    if (!message.trim()) return;
 
-    socket.emit('message', message)
-    clearInput()
-    focusInput()
-  }
-  
-
+    socket.emit('message', { text: message, authorId: user.id, author: user.username });
+    clearInput();
+    focusInput();
+    console.log(message)
+  };
+  console.log('messageList', messageList)
 
   const clearInput = () => {
-    messageRef.current.value = ''
-  }
+    messageRef.current.value = '';
+  };
 
   const focusInput = () => {
-    messageRef.current.focus()
-  }
+    messageRef.current.focus();
+  };
 
   const getEnterKey = (e) => {
-    if(e.key === 'Enter')
-      handleSubmit()
-  }
+    if (e.key === 'Enter') handleSubmit();
+  };
 
   const scrollDown = () => {
-    bottomRef.current.scrollIntoView({behavior: 'smooth'})
-  }
+    bottomRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const handleBackground = (image) => {
-    setBackgroundImage(`url(${image})`)
-  }
+    setBackgroundImage(`url(${image})`);
+  };
 
   return (
     <div>
@@ -84,11 +93,12 @@ export default function Chat({socket}) {
         </div>
           <span></span>
         </div>
+        <div className={style["chat-body-footer"]}>
         <div className={style["chat-body"]}>
 
         {
           messageList.map((message,index) => (
-            <div className={`${style["message-container"]} ${message.authorId === socket.id && style["message-mine"]}`} key={index}>
+            <div className={`${style["message-container"]} ${message.authorId === user.id && style["message-mine"]}`} key={index}>
               <div className="message-author"><strong>{message.author}</strong></div>
               <div className="message-text">{message.text}</div>
             </div>
@@ -100,7 +110,9 @@ export default function Chat({socket}) {
           <Input inputRef={messageRef} placeholder='Mensagem' onKeyDown={(e)=>getEnterKey(e)} fullWidth />
           <SendIcon sx={{ m: 1, cursor: 'pointer' }} onClick={handleSubmit} color="primary" />
         </div>
+        </div>
       </div>
       </div>
-  )
-}
+  );
+};
+

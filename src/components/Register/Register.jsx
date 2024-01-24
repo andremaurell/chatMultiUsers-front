@@ -30,7 +30,9 @@ export default function Register() {
   </div>
     <div className={style['join-container']}>
       <h2 className={style['title']}>Chat em tempo real</h2>
+      <h3>Register</h3>
         <form onSubmit={handleSubmit}>
+        <div className={style['form-register']}>
       <Input 
         type='text'
         placeholder='Nome de usuário'
@@ -43,10 +45,13 @@ export default function Register() {
         onChange={(e) => setPassword(e.target.value)}
         value={password}
       />
+      </div>
+      <div className={style['form-button']}>
       <Button sx={{mt:2}} onClick={handleSubmit} variant="contained">Registrar</Button>
       <Link to="/">
       <Button sx={{mt:2}} variant="contained">Entrar</Button>
       </Link>
+      </div>
         </form>
     </div>
     </div>

@@ -23,7 +23,9 @@ export default function Join() {
   </div>
     <div className={style['join-container']}>
       <h2 className={style['title']}>Chat em tempo real</h2>
-      <form>
+      <h3>Login</h3>
+      <form >
+      <div className={style['form-login']}>
       <Input 
         type='text'
         placeholder='Nome de usuário'
@@ -36,10 +38,13 @@ export default function Join() {
         onChange={(e) => setPassword(e.target.value)}
         value={password}
       />
+      </div>
+      <div className={style['form-button']}>
       <Button sx={{mt:2}} onClick={()=>handleSubmit(username, password)} variant="contained">Entrar</Button>
       <Link to="/register">
       <Button sx={{mt:2}} variant="contained">Registrar</Button>
       </Link>
+      </div>
       </form>
     </div>
     </div>

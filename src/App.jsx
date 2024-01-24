@@ -5,6 +5,9 @@ import Register from './components/Register/Register';
 import { AuthProvider } from './context/AuthContext';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
+
+
+
 function App() {
   return (
     <div className="App">

@@ -1,5 +1,5 @@
 .chat-container{
-  height: 600px;
+  height: 640px;
   width: 400px;
   background-image: url('../../assets/fundoChat.png');
   background-size: cover;
@@ -7,7 +7,7 @@
   -webkit-box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.3); 
 	box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.3);
   position: absolute;
-  top: 10%;
+  top: 2%;
 }
 
 .chat-container .barLogo {
@@ -31,13 +31,21 @@
   border:2px #00f2fe solid; 
 }
 
+.chat-body-footer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 50px;
+}
+
 .chat-body{
-  padding: 0 10px;
+  padding: 10px 10px;
   height: 550px;
   overflow-y: scroll;
   color: #000;
   display: flex;
   flex-direction: column;
+
 }
 
 .message-container{

@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (username, password) => {
         try {
-            const result = await axios.post('http://localhost:3001/login', { username, password });
+            const result = await axios.post('https://chat-multi-users-back.vercel.app/login', { username, password });
             const loggedInUser = {
                 id: result.data.id,
                 username: username,
@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
             console.error('Login failed:', error.response.data.message || 'Unexpected error');
         }
     }
-    const socket = isAuthenticated ? io('http://localhost:3001', { query: { userId: user.id } }) : null;
+    const socket = isAuthenticated ? io('https://chat-multi-users-back.vercel.app', { query: { userId: user.id } }) : null;
 
     return (
         <AuthContext.Provider value={{ isAuthenticated, user, login, socket }}>

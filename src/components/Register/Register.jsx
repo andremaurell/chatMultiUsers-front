@@ -12,7 +12,7 @@ export default function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await axios.post('http://localhost:3001/register', { username, password })
+        const response = await axios.post('https://chat-multi-users-back.vercel.app/register', { username, password })
         .then(res => {
             navigate('/');
             console.log('Usuário cadastrado com sucesso!', response.data);

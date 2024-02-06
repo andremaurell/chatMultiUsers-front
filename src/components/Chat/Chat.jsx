@@ -56,6 +56,7 @@ export default function Chat() {
     } else {
       console.log('Socket não está conectado!');
     }
+  }
   console.log('messageList', messageList)
 
   const clearInput = () => {

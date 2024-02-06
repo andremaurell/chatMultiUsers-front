@@ -48,11 +48,14 @@ export default function Chat() {
     const message = messageRef.current.value;
     if (!message.trim()) return;
 
-    socket.emit('message', { text: message, authorId: user.id, author: user.username });
-    clearInput();
-    focusInput();
-    console.log(message)
-  };
+    if (socket.connected) {
+      socket.emit('message', { text: message, authorId: user.id, author: user.username });
+      clearInput();
+      focusInput();
+      console.log('Mensagem enviada:', message);
+    } else {
+      console.log('Socket não está conectado!');
+    }
   console.log('messageList', messageList)
 
   const clearInput = () => {

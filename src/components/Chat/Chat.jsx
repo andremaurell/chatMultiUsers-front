@@ -71,10 +71,6 @@ export default function Chat() {
     if (e.key === 'Enter') handleSubmit();
   };
 
-  const scrollDown = () => {
-    bottomRef.current.scrollIntoView({ behavior: 'smooth' });
-  };
-
   const handleBackground = (image) => {
     setBackgroundImage(`url(${image})`);
   };

@@ -52,8 +52,8 @@ export default function Chat() {
       focusInput();
       console.log('Mensagem enviada:', message);
       console.log('socket: ', socket.emit('message', { text: message, authorId: user.id, author: user.username }));
+      console.log('messageList', messageList)
   }
-  console.log('messageList', messageList)
 
   const clearInput = () => {
     messageRef.current.value = '';

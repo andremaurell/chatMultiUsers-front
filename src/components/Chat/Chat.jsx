@@ -53,6 +53,7 @@ export default function Chat() {
       console.log('Mensagem enviada:', message);
       console.log('socket: ', socket.emit('message', { text: message, authorId: user.id, author: user.username }));
       console.log('messageList', messageList)
+      console.log('user', isAuthenticated, user.id, user.username)
   }
 
   const clearInput = () => {

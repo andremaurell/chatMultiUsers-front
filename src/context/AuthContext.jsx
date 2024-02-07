@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
             console.error('Login failed:', error.response.data.message || 'Unexpected error');
         }
     }
-    const socket = isAuthenticated ? io('https://chat-multi-users-back.vercel.app:3001', { query: { userId: user.id } }) : null;
+    const socket = io('https://chat-multi-users-back.vercel.app:3001', { query: { userId: user.id } });
 
     return (
         <AuthContext.Provider value={{ isAuthenticated, user, login, socket }}>

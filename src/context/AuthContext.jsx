@@ -26,15 +26,8 @@ export const AuthProvider = ({ children }) => {
             console.error('Login failed:', error.response.data.message || 'Unexpected error');
         }
     }
-    useEffect(() => {
-        if (isAuthenticated && user) {
-            const newSocket = io('https://chat-multi-users-back.vercel.app:3001', { query: { userId: user.id } });
-            setSocket(newSocket);
-            return () => {
-                newSocket.disconnect();
-            };
-        }
-    }, [isAuthenticated, user]);
+    const socket = isAuthenticated ? io('https://chat-multi-users-back.vercel.app:3001', { query: { userId: user.id } }) : null;
+
     return (
         <AuthContext.Provider value={{ isAuthenticated, user, login, socket }}>
             {children}

@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
             console.error('Login failed:', error.response.data.message || 'Unexpected error');
         }
     }
-    const socket = isAuthenticated ? io('https://chatmultiusers-back-production.up.railway.app', { query: { userId: user.id } }) : null;
+    const socket = isAuthenticated ? io('https://chatmultiusers-back-production.up.railway.app/', { query: { userId: user.id } }) : null;
 
     return (
         <AuthContext.Provider value={{ isAuthenticated, user, login, socket }}>

@@ -51,7 +51,7 @@ export default function Chat() {
       clearInput();
       focusInput();
       console.log('Mensagem enviada:', message);
-      console.log('Socket não está conectado!');
+      console.log('socket: ', socket.emit('message', { text: message, authorId: user.id, author: user.username }));
   }
   console.log('messageList', messageList)
 

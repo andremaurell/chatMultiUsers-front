@@ -30,7 +30,12 @@ export default function Chat() {
      console.log('user', user)
     const handleReceiveMessage = (data) => {
       console.log('data', data)
-      setMessageList((current) => [...current, data]);
+      const messageExists = prevMessages.some((message) => message.id === data.id);
+
+      if (!messageExists) {
+        return [...prevMessages, data];
+      }
+      return prevMessages;
     };
 
     socket.on('receive_message', handleReceiveMessage);

@@ -30,7 +30,7 @@ export default function Chat() {
      console.log('user', user)
     const handleReceiveMessage = (data) => {
       console.log('data', data)
-      setMessageList((current) => [...current, data]);
+      setMessageList((current) => [...current, data])
     };
 
     socket.on('receive_message', handleReceiveMessage);
@@ -104,7 +104,7 @@ export default function Chat() {
         <div ref={bottomRef} />
         </div>
         <div className={style["chat-footer"]}>
-          <Input inputRef={messageRef} placeholder='Mensagem' onKeyDown={(e)=>getEnterKey(e)} fullWidth />
+          <Input inputRef={messageRef} placeholder='Mensagem' onKeyDown={(e)=>getEnterKey(e)} fullWidgit th />
           <SendIcon sx={{ m: 1, cursor: 'pointer' }} onClick={handleSubmit} color="primary" />
         </div>
         </div>

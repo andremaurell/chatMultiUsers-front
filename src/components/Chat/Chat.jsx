@@ -30,15 +30,14 @@ export default function Chat() {
      console.log('user', user)
     const handleReceiveMessage = (data) => {
       console.log('data', data)
-      const messageExists = prevMessages.some((message) => message.id === data.id);
-
-      if (!messageExists) {
-        return [...prevMessages, data];
-      }
-      return prevMessages;
+      setMessageList((current) => [...current, data]);
     };
 
     socket.on('receive_message', handleReceiveMessage);
+
+    return () => {
+      socket.off('receive_message', handleReceiveMessage);
+    };
   }, [socket]);
               
   useEffect(() => {
@@ -113,4 +112,3 @@ export default function Chat() {
       </div>
   );
 };
-

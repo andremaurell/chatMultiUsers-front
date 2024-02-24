@@ -30,7 +30,7 @@ export default function Chat() {
   useEffect(() => {
     const handleReceiveMessage = (data) => {
       console.log('data', data);
-      setMessageList((current) => [...current, data]);
+      setMessageList(() => [data]);
     };
 
     handleReceiveMessageRef.current = handleReceiveMessage;

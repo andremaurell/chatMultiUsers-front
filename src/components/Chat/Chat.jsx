@@ -35,6 +35,9 @@ export default function Chat() {
 
     socket.on('receive_message', handleReceiveMessage);
 
+    return () => {
+      socket.off('receive_message', handleReceiveMessage);
+    };
   }, [socket]);
               
   useEffect(() => {

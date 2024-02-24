@@ -30,11 +30,11 @@ export default function Chat() {
      console.log('user', user)
     const handleReceiveMessage = (data) => {
       console.log('data', data)
-      setMessageList((current) => [...current, data])
+      setMessageList((current) => [...current, data]);
     };
-    return () => {
-      socket.off('receive_message', handleReceiveMessage);
-    };
+
+    socket.on('receive_message', handleReceiveMessage);
+
   }, [socket]);
               
   useEffect(() => {

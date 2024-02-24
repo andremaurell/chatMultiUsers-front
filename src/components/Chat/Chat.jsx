@@ -18,6 +18,8 @@ export default function Chat() {
   const [messageList, setMessageList] = useState([])
   const [backgroundImage, setBackgroundImage] = useState('');
   const navigate = useNavigate();
+  const handleReceiveMessageRef = useRef();
+
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -26,19 +28,20 @@ export default function Chat() {
   }, [isAuthenticated]);
 
   useEffect(() => {
-     console.log('socket', socket)
-     console.log('user', user)
     const handleReceiveMessage = (data) => {
-      console.log('data', data)
+      console.log('data', data);
       setMessageList((current) => [...current, data]);
     };
 
-    socket.on('receive_message', handleReceiveMessage);
+    handleReceiveMessageRef.current = handleReceiveMessage;
+
+    socket.on('receive_message', handleReceiveMessageRef.current);
 
     return () => {
-      socket.off('receive_message', handleReceiveMessage);
+      socket.off('receive_message', handleReceiveMessageRef.current);
     };
   }, [socket]);
+
               
   useEffect(() => {
     bottomRef.current.scrollIntoView({ behavior: 'smooth' });
